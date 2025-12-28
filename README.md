@@ -1,140 +1,123 @@
-# 🔮 LSTM Stock Price Prediction Model
+# 📈 LSTM Stock & Crypto Price Prediction
 
-A complete machine learning pipeline for stock price prediction using Long Short-Term Memory (LSTM) neural networks with TensorFlow/Keras.
+A deep learning model using LSTM (Long Short-Term Memory) neural networks to predict stock and cryptocurrency prices.
 
-## 📁 Files Included
+![Python](https://img.shields.io/badge/Python-3.11-blue.svg)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.10+-orange.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-| File | Description |
-|------|-------------|
-| `stock_prediction_lstm.py` | Complete standalone model with sample data generation |
-| `stock_prediction_real.py` | Enhanced version with real Yahoo Finance data fetching |
-| `requirements.txt` | Python dependencies |
+## 🎯 Features
 
-## 🚀 Quick Start
+- **Real-time data fetching** from Yahoo Finance (stocks, crypto, ETFs)
+- **40+ technical indicators** (SMA, EMA, MACD, RSI, Bollinger Bands, ATR, etc.)
+- **Bidirectional LSTM** architecture with dropout regularization
+- **Early stopping** and learning rate scheduling
+- **Comprehensive visualizations** (predictions, training history, error analysis)
 
-### 1. Install Dependencies
+## 🛠️ Installation
 
+### Prerequisites
+- Python 3.11 (TensorFlow doesn't support Python 3.12+ on Windows yet)
+
+### Setup
 ```bash
+# Clone the repository
+git clone https://github.com/Virus-101/stock-pred.git
+cd stock-pred
+
+# Create virtual environment with Python 3.11
+py -3.11 -m venv venv
+
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Run with Sample Data
+## 🚀 Usage
 
+### Predict Bitcoin Prices
+```bash
+python stock_prediction_real.py --ticker BTC-USD --period max --epochs 150
+```
+
+### Predict Stock Prices
+```bash
+# Apple
+python stock_prediction_real.py --ticker AAPL --period 5y --epochs 100
+
+# Tesla
+python stock_prediction_real.py --ticker TSLA --period 5y --epochs 100
+
+# Microsoft
+python stock_prediction_real.py --ticker MSFT --period 5y --epochs 100
+```
+
+### Run with Sample Data (No Internet Required)
 ```bash
 python stock_prediction_lstm.py
 ```
 
-This generates synthetic stock data and produces visualizations without needing internet access.
-
-### 3. Run with Real Stock Data
-
-```bash
-# Default: Apple stock, 5 years of data
-python stock_prediction_real.py
-
-# Custom ticker and settings
-python stock_prediction_real.py --ticker MSFT --period 3y --epochs 150
-
-# Full options
-python stock_prediction_real.py --ticker GOOGL --period 5y --sequence 90 --epochs 100 --batch 64 --output ./results
-```
-
-## 📊 Features
-
-### Data Processing
-- **Technical Indicators**: SMA, EMA, MACD, RSI, Bollinger Bands, ATR, Stochastic Oscillator, Williams %R, OBV, and more
-- **Feature Engineering**: 40+ derived features for better prediction
-- **Automatic Scaling**: MinMax normalization for optimal neural network performance
-
-### Model Architecture
-```
-Bidirectional LSTM (256 units) → BatchNorm → Dropout
-         ↓
-    LSTM (128 units) → BatchNorm → Dropout
-         ↓
-    LSTM (64 units) → BatchNorm → Dropout
-         ↓
-    Dense (64) → Dense (32) → Output (1)
-```
-
-### Training Features
-- **Early Stopping**: Prevents overfitting with patience-based stopping
-- **Learning Rate Reduction**: Adaptive learning rate on plateaus
-- **Model Checkpointing**: Saves best model during training
-- **Huber Loss**: Robust to outliers in price data
-
-### Visualization Outputs
-1. **Training History**: Loss and MAE curves
-2. **Prediction Timeline**: Full train/test comparison
-3. **Scatter Plot**: Actual vs Predicted correlation
-4. **Error Distribution**: Histogram of prediction errors
-5. **Metrics Summary**: Visual performance metrics
-
-## 📈 Model Metrics
-
-The model evaluates using:
-- **MSE** (Mean Squared Error)
-- **RMSE** (Root Mean Squared Error)
-- **MAE** (Mean Absolute Error)
-- **R² Score** (Coefficient of Determination)
-- **MAPE** (Mean Absolute Percentage Error)
-
-## 🔧 Configuration Options
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--ticker` | AAPL | Stock symbol |
-| `--period` | 5y | Data period (1y, 2y, 5y, 10y, max) |
+### Command Line Options
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--ticker` | AAPL | Stock/crypto symbol (e.g., BTC-USD, AAPL, TSLA) |
+| `--period` | 5y | Data period: 1y, 2y, 5y, 10y, max |
 | `--sequence` | 60 | Lookback window in days |
 | `--epochs` | 100 | Maximum training epochs |
 | `--batch` | 32 | Training batch size |
-| `--output` | . | Output directory for plots/models |
 
-## 💡 Tips for Better Predictions
+## 📊 Model Architecture
+```
+Input (60 days × 40+ features)
+          ↓
+Bidirectional LSTM (256 units)
+          ↓
+    BatchNorm + Dropout (0.3)
+          ↓
+     LSTM (128 units)
+          ↓
+    BatchNorm + Dropout (0.3)
+          ↓
+     LSTM (64 units)
+          ↓
+    BatchNorm + Dropout (0.3)
+          ↓
+    Dense (64) → Dense (32) → Output (1)
+```
 
-1. **More Data**: Use `--period 10y` or `max` for more training data
-2. **Longer Sequences**: Try `--sequence 90` or `120` for more context
-3. **Feature Selection**: Edit the code to include/exclude specific indicators
-4. **Ensemble**: Train multiple models and average predictions
-5. **Walk-Forward Validation**: Implement rolling window validation for production
+## 📈 Technical Indicators
+
+- **Moving Averages**: SMA (5, 10, 20, 50, 100, 200), EMA
+- **Momentum**: MACD, RSI, Stochastic Oscillator, Williams %R, ROC
+- **Volatility**: ATR, Bollinger Bands, Historical Volatility
+- **Volume**: OBV, Volume Ratio, Volume SMA
+
+## 📁 Project Structure
+```
+stock-pred/
+├── stock_prediction_lstm.py   # Model with sample data
+├── stock_prediction_real.py   # Model with Yahoo Finance data
+├── requirements.txt           # Python dependencies
+└── README.md
+```
 
 ## ⚠️ Disclaimer
 
-This model is for **educational purposes only**. Stock price prediction is inherently uncertain and this model should NOT be used for actual trading decisions. Past performance does not guarantee future results.
+**This project is for educational purposes only.**
 
-## 📚 Technical Details
+Stock and cryptocurrency markets are inherently unpredictable. This model learns patterns from historical data but **cannot reliably predict future prices**.
 
-### Input Features (40+)
-- Price data: Open, High, Low, Close, Volume
-- Moving Averages: SMA (5, 10, 20, 50, 100, 200), EMA variants
-- Momentum: MACD, RSI, Stochastic, Williams %R, ROC
-- Volatility: ATR, Bollinger Bands, Historical Volatility
-- Volume: OBV, Volume Ratio, Volume SMA
+**Do NOT use this model for real trading or investment decisions.**
 
-### Sequence Structure
-```
-Day 1-60 Features → Predict Day 61 Close Price
-Day 2-61 Features → Predict Day 62 Close Price
-...
-```
+## 📝 License
 
-## 🛠️ Extending the Model
-
-### Add Custom Indicators
-```python
-# In add_technical_indicators method:
-df['Custom_Indicator'] = your_calculation(df)
-```
-
-### Modify Architecture
-```python
-# In build method:
-model.build(lstm_units=[512, 256, 128], dropout=0.4)
-```
-
-### Multi-Step Prediction
-Modify the output layer to predict multiple future days.
+MIT License - feel free to use and modify for your own projects.
 
 ---
 
-Created with ❤️ for stock market enthusiasts and ML learners.
+Built with ❤️ using TensorFlow and Python
