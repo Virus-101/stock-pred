@@ -1,4 +1,4 @@
-# 📈 LSTM Stock & Crypto Price Prediction
+# LSTM Stock & Crypto Price Prediction
 
 A deep learning model using LSTM (Long Short-Term Memory) neural networks to predict stock and cryptocurrency prices.
 
@@ -6,7 +6,7 @@ A deep learning model using LSTM (Long Short-Term Memory) neural networks to pre
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.10+-orange.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-## 🎯 Features
+## Features
 
 - **Real-time data fetching** from Yahoo Finance (stocks, crypto, ETFs)
 - **40+ technical indicators** (SMA, EMA, MACD, RSI, Bollinger Bands, ATR, etc.)
@@ -14,7 +14,7 @@ A deep learning model using LSTM (Long Short-Term Memory) neural networks to pre
 - **Early stopping** and learning rate scheduling
 - **Comprehensive visualizations** (predictions, training history, error analysis)
 
-## 🛠️ Installation
+## Installation
 
 ### Prerequisites
 - Python 3.11 (TensorFlow doesn't support Python 3.12+ on Windows yet)
@@ -38,7 +38,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## 🚀 Usage
+## Usage
 
 ### Predict Bitcoin Prices
 ```bash
@@ -71,7 +71,7 @@ python stock_prediction_lstm.py
 | `--epochs` | 100 | Maximum training epochs |
 | `--batch` | 32 | Training batch size |
 
-## 📊 Model Architecture
+## Model Architecture
 ```
 Input (60 days × 40+ features)
           ↓
@@ -90,14 +90,14 @@ Bidirectional LSTM (256 units)
     Dense (64) → Dense (32) → Output (1)
 ```
 
-## 📈 Technical Indicators
+## Technical Indicators
 
 - **Moving Averages**: SMA (5, 10, 20, 50, 100, 200), EMA
 - **Momentum**: MACD, RSI, Stochastic Oscillator, Williams %R, ROC
 - **Volatility**: ATR, Bollinger Bands, Historical Volatility
 - **Volume**: OBV, Volume Ratio, Volume SMA
 
-## 📁 Project Structure
+## Project Structure
 ```
 stock-pred/
 ├── stock_prediction_lstm.py   # Model with sample data
@@ -106,18 +106,10 @@ stock-pred/
 └── README.md
 ```
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 **This project is for educational purposes only.**
 
 Stock and cryptocurrency markets are inherently unpredictable. This model learns patterns from historical data but **cannot reliably predict future prices**.
 
 **Do NOT use this model for real trading or investment decisions.**
-
-## 📝 License
-
-MIT License - feel free to use and modify for your own projects.
-
----
-
-Built with ❤️ using TensorFlow and Python
